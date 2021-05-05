@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />  
+	<link type="text/css" rel="stylesheet" href="/webex_wtf/index.css" />
+	<script type="text/javascript" src="/webex_wtf/index.html"></script>
+</head>
+<body class="sub">
+	<section class="authentication">
+		<h3>authentication</h3>
+		<div class="authentication__token_wrap">
+			<input type="text" id="accessToken" value="" />
+			<button id="init">init</button>
+			<button id="register">register</button>
+		</div>
+	</section>
+	
+	<section class="meeting">
+		<h3>meeting</h3>
+		<div class="meeting__create">
+			<input type="text" id="sipUrl" value="" />
+			<button id="create">create</button>
+		</div>
+		<div class="meeting__list">
+			<p>created list</p>
+			<ul class="list__meeting"></ul>
+		</div>
+		<div class="meeting__add">
+			<button id="addMedia">addMedia</button>
+			<button id="leaveMeeting">leaveMeeting</button>
+			<label id="meetings-current-details">Not currently in a meeting</label>
+		</div>
+	</section>
+	
+	<section class="controls">
+		<h3>controls</h3>
+		<div class="controls__media">
+			<button id="getMediaStreams">getMediaStreams</button>
+			<!-- <button id="shareScreen">shareScreen</button> -->
+			<!-- <button class="getDevices">getDevices</button> -->
+		</div>
+		<div class="controls__checkbox">
+			<label>
+				<input type="checkbox" name="ts-media-direction" value="receiveAudio" checked="">receiveAudio
+			</label>
+			<label>
+				<input type="checkbox" name="ts-media-direction" value="receiveVideo" checked="">receiveVideo
+			</label>
+			<label>
+				<input type="checkbox" name="ts-media-direction" value="receiveShare" checked="">receiveShare
+			</label>
+			<label>
+				<input type="checkbox" name="ts-media-direction" value="sendAudio" checked="">sendAudio
+			</label>
+			<label>
+				<input type="checkbox" name="ts-media-direction" value="sendVideo" checked="">sendVideo
+			</label>
+			<label>
+				<input type="checkbox" name="ts-media-direction" value="sendShare" id="sendShareToggle">sendShare
+			</label>
+		</div>
+		<div class="controls__quality">
+			<select id="ts-sending-qualities-list">
+				<option value="LOW">LOW</option>
+				<option value="MEDIUM">MEDIUM</option>
+				<option value="HIGH">HIGH</option>
+			</select>
+			<button id="setLocalMeetingQuality">setLocalMeetingQuality</button>
+           	<button id="setRemoteMeetingQuality">setRemoteMeetingQuality</button>
+           	<button id="setMeetingQuality">setMeetingQuality</button>
+           	<label id="ts-sending-quality-status"></label>
+		</div>
+		<div class="controls__toggleSend">
+           	<button id="ts-toggle-audio" type="button">meeting.unmuteAudio() / meeting.muteAudio()</button>
+            <label id="ts-toggle-audio-status"></label>
+            <button id="ts-toggle-video" type="button">meeting.unmuteVideo() / meeting.muteVideo()</button>
+            <label id="ts-toggle-video-status"></label>
+		</div>
+	</section>
+	
+	<section class="result">
+		<h3>result</h3>
+		<div class="result__fullScreen">
+			<button id="full-remote-video" type="button">full remote video</button>
+			<button id="load-remote-video" type="button">load remote video</button>
+	        <button id="load-remote-screen" type="button">load remote screen</button>
+		</div>
+		<div class="result__video">
+			<p>local video</p>
+			<video id="local-video" muted="true" autoplay playsinline></video>
+		</div>
+		<div class="result__video" style="display:none">
+			<p>local screen</p>
+			<video id="local-screenshare" muted="true" autoplay playsinline></video>
+		</div>
+		<div class="result__video">
+			<p>remote video</p>
+			<video id="remote-video" autoplay playsinline></video>
+			<audio id="remote-audio" autoplay></audio>
+		</div>
+		<div class="result__video">
+			<p id="remote-screenshare-text">remote screen</p>
+			<video id="remote-screenshare" autoplay playsinline></video>
+		</div>
+	</section>
+	
+	<section class="chat">
+		<h3>chat</h3>
+		<div class="chat__list">
+			<div class="list__receive" id="someone">
+				<p class="message-name">보낸사람</p>
+				<div class="message-wrap">
+					<p class="wrap__message-content">샘플 메세지1</p>
+					<p class="wrap__message-time">11:28</p>
+				</div>
+			</div>
+			<div class="list__receive me" id="self">
+				<p class="message-name">나</p>
+				<div class="message-wrap">
+					<p class="wrap__message-time">11:28</p>
+					<p class="wrap__message-content">샘플 메세지2</p>
+				</div>
+			</div>
+		</div>
+		<div class="chat__input">
+			<input type="text" id="inputMessage" />
+			<button type="button" id="enter">ㄱ</button>
+		</div>
+	</section>
+
+	<!-- 팝업창 :: START -->
+	<div class="dimmed hide" id="dimmed">
+		<!-- 알림 팝업창 -->
+		<div class="popupWrap hide" id="alertPopupWrap">
+			<p class="pop_text" id="popText"></p>
+			<input type="text" />
+			<div class="popup_btn type01" id="popBtnType">
+				<button class="pop_btnCancel" id="btnCancel"><span>취소</span></button>
+				<button class="pop_btnOk" id="btnOk"><span>확인</span></button>
+			</div>
+		</div>
+		
+		<div class="popupWrap hide" id="alertLoading">
+			<p class="pop_text" id="popText">loading...</p>
+		</div>
+	</div>
+
+	<script src="/webex_wtf/index.js"></script>
+</body>
+</html>
+  
